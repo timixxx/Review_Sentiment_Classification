@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        flex-direction: column;
+    }
+</style>
+
+<div class="center">
+{% block content%}
+
+    <h1>Review Score Guesser</h1>
+
+    <form method="post" enctype="multipart/form-data" action="predictRev">
+ {% csrf_token %}
+ <div class="col-md-4 col-sm-4"><label for="fname">Your Review:</label> </div> <input name="reviewVal" type="text" value={{temp.review}}><br><br>
+<input type="submit" value="Submit" >
+    {% if Predicted_Score %}
+ <h2>Your review probably has "{{Predicted_Score}}" Stars out of 10 </h2>
+<h3>Status: {{ Status }}</h3>
+    {% endif %}
+</form>
+<br>
+{% endblock %}
+</div>
