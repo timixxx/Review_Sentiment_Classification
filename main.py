@@ -14,37 +14,39 @@ import pickle
 #reading reviews:
 print('Loading files...')
 
-#Manual Data Loading from .txt files (use for source data from https://ai.stanford.edu/~amaas/data/sentiment/ )
-# def load_txt_data_pos(path_train_pos, path_test_pos):
-#      tr_files_pos = os.listdir(path_train_pos)
-#      tr_files_pos = [open(path_train_pos+txt, encoding="utf8").read() for txt in tr_files_pos]
-#      ts_files_pos = os.listdir(path_test_pos)
-#      ts_files_pos = [open(path_test_pos+txt, encoding="utf8").read() for txt in ts_files_pos]
-#      return ts_files_pos+tr_files_pos
-#
-# def load_txt_data_neg(path_train_neg, path_test_neg):
-#      tr_files_neg = os.listdir(path_train_neg)
-#      tr_files_neg = [open(path_train_neg+txt, encoding="utf8").read() for txt in tr_files_neg]
-#      ts_files_neg = os.listdir(path_test_neg)
-#      ts_files_neg = [open(path_test_neg+txt, encoding="utf8").read() for txt in ts_files_neg]
-#      return ts_files_neg+tr_files_neg
-#
-#
-# #converting to a dataframe:
-# print('Converting to a dataframe...')
-#
-# data = []
-# for row in load_txt_data_pos('source_data/train/pos/', 'source_data/test/pos/'):
-#      data.append((row, 'pos'))
-#
-# for row in load_txt_data_neg('source_data/train/neg/', 'source_data/test/neg/'):
-#      data.append((row, 'neg'))
-#
-# index = [i for i in range(len(data))]
-#
-# df = pd.DataFrame(data=data, index=index, columns=['Text', 'Sentiment'])
+#Manual Data Loading from .txt files 
+def load_txt_data_pos(path_train_pos, path_test_pos):
+     tr_files_pos = os.listdir(path_train_pos)
+     tr_files_pos = [open(path_train_pos+txt, encoding="utf8").read() for txt in tr_files_pos]
+     ts_files_pos = os.listdir(path_test_pos)
+     ts_files_pos = [open(path_test_pos+txt, encoding="utf8").read() for txt in ts_files_pos]
+     return ts_files_pos+tr_files_pos
 
-df = pd.read_csv('Movie_Data.csv')
+def load_txt_data_neg(path_train_neg, path_test_neg):
+     tr_files_neg = os.listdir(path_train_neg)
+     tr_files_neg = [open(path_train_neg+txt, encoding="utf8").read() for txt in tr_files_neg]
+     ts_files_neg = os.listdir(path_test_neg)
+     ts_files_neg = [open(path_test_neg+txt, encoding="utf8").read() for txt in ts_files_neg]
+     return ts_files_neg+tr_files_neg
+
+
+#converting to a dataframe:
+print('Converting to a dataframe...')
+
+data = []
+for row in load_txt_data_pos('source_data/train/pos/', 'source_data/test/pos/'):
+     data.append((row, 'pos'))
+
+for row in load_txt_data_neg('source_data/train/neg/', 'source_data/test/neg/'):
+      data.append((row, 'neg'))
+
+index = [i for i in range(len(data))]
+
+df = pd.DataFrame(data=data, index=index, columns=['Text', 'Sentiment'])
+
+#or just read already created csv
+#df = pd.read_csv('Movie_Data.csv')
+
 
 #removing duplicates:
 df = df.drop_duplicates()
